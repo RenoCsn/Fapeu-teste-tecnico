@@ -1,4 +1,5 @@
 import { List as AntdList, Flex } from 'antd';
+import ListItem from './ListItem';
 
 interface DataType {
   userId: number;
@@ -7,7 +8,7 @@ interface DataType {
   body: string;
 }
 
-const data = [
+const data: DataType[] = [
 {
 userId: 1,
 id: 1,
@@ -21,7 +22,7 @@ title: "qui est esse",
 body: "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
 },]
 
-export const List: React.FC = () => {
+const List: React.FC = () => {
     return (
       <Flex gap="small" vertical>
         <AntdList 

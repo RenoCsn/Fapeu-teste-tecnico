@@ -1,6 +1,6 @@
 import { Flex } from 'antd';
 import './App.css';
-import {List} from './Components/List';
+import List from './Components/List';
 
 function App() {
   return (
