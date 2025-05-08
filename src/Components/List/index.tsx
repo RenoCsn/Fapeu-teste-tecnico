@@ -1,35 +1,44 @@
 import { List as AntdList, Flex } from 'antd';
 import ListItem from './ListItem';
+import type { DataType } from '../../Utils/types';
+import { useEffect, useState } from 'react';
 
-interface DataType {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}
 
-const data: DataType[] = [
-{
-userId: 1,
-id: 1,
-title: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-body: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-},
-{
-userId: 1,
-id: 2,
-title: "qui est esse",
-body: "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
-},]
 
 const List: React.FC = () => {
+
+const [response, setResponse] = useState([]);
+const [error, setError] = useState("");
+const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    
+    const fetchData = async () => {
+      try{
+
+      setIsLoading(true)
+      const dataFetch = await fetch("https://jsonplaceholder.typicode.com/posts").then(response => response.json());
+      setResponse(dataFetch);
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+      } catch (error: any) {
+        setError(error.message)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData();
+
+  }, []);
+
     return (
       <Flex gap="small" vertical>
         <AntdList 
           size="large"
           bordered
-          dataSource={data}
-          renderItem={(item) => <AntdList.Item>
+          loading={isLoading}
+          dataSource={response}
+          renderItem={(item: DataType) => <AntdList.Item>
             <ListItem 
               userId= {item.userId} 
               id={item.id} 
