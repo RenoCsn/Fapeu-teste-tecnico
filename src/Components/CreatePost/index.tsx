@@ -1,4 +1,4 @@
-import { Card, Flex, Input, Typography } from "antd";
+import { Button, Card, Flex, Input, Typography } from "antd";
 
 const CreatePost: React.FC = () => {
 	const isFilled: boolean = true;
@@ -7,9 +7,9 @@ const CreatePost: React.FC = () => {
 	return (
 		<Flex vertical style={{ width: "100%", maxWidth: "1400px" }}>
 			<Card title="Criar um novo post" variant="borderless">
-				<Flex vertical gap={8}>
-					<Flex vertical gap={12}>
-						<Text strong style={{ fontSize: 10 }}>
+				<Flex vertical gap={16}>
+					<Flex vertical gap={4}>
+						<Text strong style={{ fontSize: 12 }}>
 							Titulo
 						</Text>
 						<Input
@@ -18,8 +18,8 @@ const CreatePost: React.FC = () => {
 							maxLength={30}
 						/>
 					</Flex>
-					<Flex vertical gap={12}>
-						<Text strong style={{ fontSize: 10 }}>
+					<Flex vertical gap={4}>
+						<Text strong style={{ fontSize: 12 }}>
 							Postagem
 						</Text>
 						<Input
@@ -28,6 +28,9 @@ const CreatePost: React.FC = () => {
 							maxLength={30}
 						/>
 					</Flex>
+					<Button disabled={!isFilled} style={{maxWidth: '150px'}}>
+						Criar postagem
+					</Button>
 				</Flex>
 			</Card>
 		</Flex>
