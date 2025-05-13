@@ -10,7 +10,7 @@ function App() {
 //funções de crud
 
   return (
-    <Flex gap="middle" vertical>
+    <Flex gap="middle" vertical align='center' style={{padding: '16px'}}>
       <CreatePost />
       <List />
     </Flex>

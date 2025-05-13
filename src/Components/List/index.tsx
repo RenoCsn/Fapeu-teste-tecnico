@@ -32,7 +32,7 @@ const [isLoading, setIsLoading] = useState(false)
   }, []);
 
     return (
-      <Flex gap="small" vertical>
+      <Flex gap="small" vertical style={{maxWidth: '1400px'}}>
         <AntdList 
           size="large"
           bordered
