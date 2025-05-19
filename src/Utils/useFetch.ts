@@ -1,14 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-export type fetchResponse = {
-    status: number;
-    statusText: string;
-    data: [];
-    error: Error;
-    loading: boolean;
-  };
-
-export const useGetApi = (url: string): fetchResponse => {
+export const useApi = (url: string) => {
   const [status, setStatus] = useState<number>(0);
   const [statusText, setStatusText] = useState<string>('');
   const [data, setData] = useState<[]>([]);
@@ -16,7 +8,7 @@ export const useGetApi = (url: string): fetchResponse => {
   const [error, setError] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const getAPIData = async () => {
+  const getData = async () => {
     setLoading(true);
     try {
         const apiResponse = await fetch(url);
@@ -30,10 +22,9 @@ export const useGetApi = (url: string): fetchResponse => {
       setLoading(false);
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
-    getAPIData();
-  }, []);
+  // criar postData
 
-  return { status, statusText, data, error, loading };
+
+
+  return {getData, data, status, statusText, error, loading};
 };

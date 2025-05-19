@@ -1,6 +1,6 @@
 import { List as AntdList, Flex } from 'antd';
 import ListItem from './ListItem';
-import type { DataType } from '../../Utils/types';
+import type { PostType } from '../../Utils/types';
 
 interface ListProps  {
   data: [],
@@ -16,7 +16,7 @@ const List: React.FC<ListProps> = ({data, isLoading}) => {
           bordered
           loading={isLoading}
           dataSource={data}
-          renderItem={(item: DataType) => <AntdList.Item>
+          renderItem={(item: PostType) => <AntdList.Item>
             <ListItem 
               userId= {item.userId} 
               id={item.id} 

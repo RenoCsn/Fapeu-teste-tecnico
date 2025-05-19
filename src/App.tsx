@@ -2,21 +2,36 @@ import { Flex } from 'antd';
 import './App.css';
 import List from './Components/List';
 import CreatePost from './Components/CreatePost';
-import { type fetchResponse, useGetApi } from './Utils/useFetch';
+import type { PostType } from './Utils/types';
+import { useApi } from './Utils/useFetch';
+import { useEffect } from 'react';
 
 function App() {
 
 //hook de fetch
-const fetched: fetchResponse = useGetApi(
+const {getData, data: fetchData, loading: fetchLoading, error: fetchError, status: fetchStatus, statusText: fetchStatusText} = useApi(
   'https://jsonplaceholder.typicode.com/posts'
 );
+
+// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+useEffect(() => {
+  getData()
+}, [])
+
+const handleOnSubmit = (newPost: PostType) => {
+  console.log("clicou", newPost);
+  
+}
+
+// ordenar a lista ao contrario
+// adicionar no final da lista
 
 //funções de crud
 
   return (
     <Flex gap="middle" vertical align='center' style={{padding: '16px'}}>
-      <CreatePost />
-      <List data={fetched.data} isLoading={fetched.loading}/>
+      <CreatePost onSubmit={handleOnSubmit}/>
+      <List data={fetchData} isLoading={fetchLoading}/>
     </Flex>
   );
 }
