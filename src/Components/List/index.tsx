@@ -3,12 +3,11 @@ import ListItem from './ListItem';
 import type { PostType } from '../../Utils/types';
 
 interface ListProps  {
-  data: [],
+  data: PostType[],
   isLoading: boolean,
 }
 
 const List: React.FC<ListProps> = ({data, isLoading}) => {
-
     return (
       <Flex gap="small" vertical style={{maxWidth: '1400px'}}>
         <AntdList 

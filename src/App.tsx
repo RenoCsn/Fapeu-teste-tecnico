@@ -15,15 +15,14 @@ const {getData, data: fetchData, loading: fetchLoading, error: fetchError, statu
 
 // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 useEffect(() => {
-  getData()
+    getData()
+// eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
 
 const handleOnSubmit = (newPost: PostType) => {
   console.log("clicou", newPost);
-  
 }
 
-// ordenar a lista ao contrario
 // adicionar no final da lista
 
 //funções de crud
@@ -31,7 +30,7 @@ const handleOnSubmit = (newPost: PostType) => {
   return (
     <Flex gap="middle" vertical align='center' style={{padding: '16px'}}>
       <CreatePost onSubmit={handleOnSubmit}/>
-      <List data={fetchData} isLoading={fetchLoading}/>
+      <List data={[...fetchData].reverse()} isLoading={fetchLoading}/>
     </Flex>
   );
 }
