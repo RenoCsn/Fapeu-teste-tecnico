@@ -10,8 +10,6 @@ export const useApi = (url: string) => {
 
   const getData = async () => {
     setLoading(true);
-    console.log("❤️");
-    
     try {
         const apiResponse = await fetch(url);
         const json = await apiResponse.json();
