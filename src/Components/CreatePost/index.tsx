@@ -9,11 +9,18 @@ const CreatePost: React.FC<CreatePostProps> = ({onSubmit}) => {
 	const isFilled: boolean = true;
 	const { Text } = Typography;
 
+	const [form] = Form.useForm();
+
+	const onFinish = (e: PostType) => {
+		onSubmit(e)
+		form.resetFields();	
+	}
+
 	return (
 		<Flex vertical style={{ width: "100%", maxWidth: "1400px" }}>
 			<Card title="Criar um novo post" variant="borderless">
 				<Flex vertical gap={16}>
-					<Form onFinish={onSubmit}>
+					<Form form={form} onFinish={onFinish}>
 						<Flex vertical gap={4}>
 							<Text strong style={{ fontSize: 12 }}>
 								Titulo *

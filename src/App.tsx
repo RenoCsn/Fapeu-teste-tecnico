@@ -8,29 +8,27 @@ import { useEffect } from 'react';
 
 function App() {
 
-//hook de fetch
-const {getData, data: fetchData, loading: fetchLoading, error: fetchError, status: fetchStatus, statusText: fetchStatusText} = useApi(
+const {getData, postData, data: fetchData, loading: fetchLoading, error: fetchError, status: fetchStatus, statusText: fetchStatusText} = useApi(
   'https://jsonplaceholder.typicode.com/posts'
 );
 
-// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 useEffect(() => {
+  if(fetchData.length < 1){
     getData()
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, [])
+  }
+  console.log("useEffect",);
+  
+}, [fetchData, getData])
 
 const handleOnSubmit = (newPost: PostType) => {
-  console.log("clicou", newPost);
+  postData(newPost)
 }
-
-// adicionar no final da lista
-
-//funções de crud
 
   return (
     <Flex gap="middle" vertical align='center' style={{padding: '16px'}}>
       <CreatePost onSubmit={handleOnSubmit}/>
       <List data={[...fetchData].reverse()} isLoading={fetchLoading}/>
+      {/* <List data={fetchData} isLoading={fetchLoading}/> */}
     </Flex>
   );
 }

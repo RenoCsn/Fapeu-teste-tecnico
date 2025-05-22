@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import type { PostType } from './types';
 
 export const useApi = (url: string) => {
   const [status, setStatus] = useState<number>(0);
   const [statusText, setStatusText] = useState<string>('');
-  const [data, setData] = useState<[]>([]);
+  const [data, setData] = useState<PostType[]>([]);
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const [error, setError] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -23,8 +24,26 @@ export const useApi = (url: string) => {
   };
 
   // criar postData
+  const postData = (newPost: PostType) => {
+    setLoading(true);
+    try {
+      const post: PostType = {
+        id: data[data.length -1].id + 1,
+        userId: 5,
+        title: newPost.title,
+        body: newPost.body,
+      };
+
+      setData([...data, post])
+      
+      console.log(data);
+    } catch (error) {
+      setError(error);
+    } finally{
+      setLoading(false)
+    }
+  }
 
 
-
-  return {getData, data, status, statusText, error, loading};
+  return {getData, postData, data, status, statusText, error, loading};
 };
