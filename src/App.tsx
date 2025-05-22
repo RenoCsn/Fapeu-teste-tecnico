@@ -1,35 +1,46 @@
-import { Flex } from 'antd';
-import './App.css';
-import List from './Components/List';
-import CreatePost from './Components/CreatePost';
-import type { PostType } from './Utils/types';
-import { useApi } from './Utils/useFetch';
-import { useEffect } from 'react';
+import { Flex } from 'antd'
+import './App.css'
+import List from './Components/List'
+import CreatePost from './Components/CreatePost'
+import type { PostType } from './Utils/types'
+import { useApi } from './Utils/useFetch'
+import { useEffect } from 'react'
 
 function App() {
+    const {
+        getData,
+        postData,
+        deleteData,
+        data: fetchData,
+        loading: fetchLoading,
+        error: fetchError,
+        status: fetchStatus,
+        statusText: fetchStatusText,
+    } = useApi('https://jsonplaceholder.typicode.com/posts')
 
-const {getData, postData, data: fetchData, loading: fetchLoading, error: fetchError, status: fetchStatus, statusText: fetchStatusText} = useApi(
-  'https://jsonplaceholder.typicode.com/posts'
-);
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+    useEffect(() => {
+        getData()
+    }, [])
 
-useEffect(() => {
-  if(fetchData.length < 1){
-    getData()
-  }
-  console.log("useEffect",);
-  
-}, [fetchData, getData])
+    const handleOnSubmit = (newPost: PostType) => {
+        postData(newPost)
+    }
 
-const handleOnSubmit = (newPost: PostType) => {
-  postData(newPost)
+    const handleDelete = (postId: PostType['id']) => {
+        deleteData(postId)
+    }
+
+    return (
+        <Flex gap="middle" vertical align="center" style={{ padding: '16px' }}>
+            <CreatePost onSubmit={handleOnSubmit} />
+            <List
+                data={[...fetchData].reverse()}
+                isLoading={fetchLoading}
+                onDelete={handleDelete}
+            />
+        </Flex>
+    )
 }
 
-  return (
-    <Flex gap="middle" vertical align='center' style={{padding: '16px'}}>
-      <CreatePost onSubmit={handleOnSubmit}/>
-      <List data={[...fetchData].reverse()} isLoading={fetchLoading}/>
-    </Flex>
-  );
-}
-
-export default App;
+export default App
