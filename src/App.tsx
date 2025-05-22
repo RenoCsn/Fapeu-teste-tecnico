@@ -28,7 +28,6 @@ const handleOnSubmit = (newPost: PostType) => {
     <Flex gap="middle" vertical align='center' style={{padding: '16px'}}>
       <CreatePost onSubmit={handleOnSubmit}/>
       <List data={[...fetchData].reverse()} isLoading={fetchLoading}/>
-      {/* <List data={fetchData} isLoading={fetchLoading}/> */}
     </Flex>
   );
 }
