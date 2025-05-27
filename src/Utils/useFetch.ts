@@ -27,15 +27,12 @@ export const useApi = (url: string) => {
         setLoading(true)
         try {
             const post: PostType = {
-                id: data[data.length - 1].id + 1,
+                id: data[data.length - 1]?.id || 0 + 1,
                 userId: 5,
                 title: newPost.title,
                 body: newPost.body,
             }
-
             setData([...data, post])
-
-            console.log(data)
         } catch (error) {
             setError(error)
         } finally {
@@ -43,5 +40,19 @@ export const useApi = (url: string) => {
         }
     }
 
-    return { getData, postData, data, status, statusText, error, loading }
+    const deleteData = (postId: PostType['id']) => {
+        const newData: PostType[] = data.filter((post) => post.id !== postId)
+        setData(newData)
+    }
+
+    return {
+        getData,
+        postData,
+        deleteData,
+        data,
+        status,
+        statusText,
+        error,
+        loading,
+    }
 }
