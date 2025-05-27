@@ -6,9 +6,10 @@ interface ListProps {
     data: PostType[]
     isLoading: boolean
     onDelete: (id: PostType['id']) => void
+    onEdit: () => void
 }
 
-const List: React.FC<ListProps> = ({ data, isLoading, onDelete }) => {
+const List: React.FC<ListProps> = ({ data, isLoading, onDelete, onEdit }) => {
     return (
         <Flex gap="small" vertical style={{ maxWidth: '1400px' }}>
             <AntdList
@@ -18,7 +19,12 @@ const List: React.FC<ListProps> = ({ data, isLoading, onDelete }) => {
                 dataSource={data}
                 renderItem={(item: PostType) => (
                     <AntdList.Item>
-                        <ListItem post={item} onDelete={onDelete} />
+                        <ListItem
+                            post={item}
+                            onDelete={onDelete}
+                            onEdit={onEdit}
+                            key={item.id}
+                        />
                     </AntdList.Item>
                 )}
             />

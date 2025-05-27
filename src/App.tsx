@@ -4,7 +4,8 @@ import List from './Components/List'
 import CreatePost from './Components/CreatePost'
 import type { PostType } from './Utils/types'
 import { useApi } from './Utils/useFetch'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import EditModal from './Components/EditModal'
 
 function App() {
     const {
@@ -17,6 +18,8 @@ function App() {
         status: fetchStatus,
         statusText: fetchStatusText,
     } = useApi('https://jsonplaceholder.typicode.com/posts')
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     useEffect(() => {
@@ -31,6 +34,18 @@ function App() {
         deleteData(postId)
     }
 
+    const handleEdit = () => {
+        setIsModalOpen(true)
+    }
+
+    const handleConfirm = () => {
+        setIsModalOpen(false)
+    }
+
+    const handleCancel = () => {
+        setIsModalOpen(false)
+    }
+
     return (
         <Flex gap="middle" vertical align="center" style={{ padding: '16px' }}>
             <CreatePost onSubmit={handleOnSubmit} />
@@ -38,6 +53,12 @@ function App() {
                 data={[...fetchData].reverse()}
                 isLoading={fetchLoading}
                 onDelete={handleDelete}
+                onEdit={handleEdit}
+            />
+            <EditModal
+                isModalOpen={isModalOpen}
+                onCancel={handleCancel}
+                onConfirm={handleConfirm}
             />
         </Flex>
     )
