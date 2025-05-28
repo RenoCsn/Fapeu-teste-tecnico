@@ -6,7 +6,6 @@ interface CreatePostProps {
 }
 
 const CreatePost: React.FC<CreatePostProps> = ({ onSubmit }) => {
-    const isFilled: boolean = true
     const { Text } = Typography
 
     const [form] = Form.useForm()
@@ -36,8 +35,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onSubmit }) => {
                             >
                                 <Input
                                     placeholder="Digite titulo da postagem"
-                                    disabled={!isFilled}
-                                    maxLength={30}
+                                    maxLength={80}
                                 />
                             </Form.Item>
                         </Flex>
@@ -57,14 +55,12 @@ const CreatePost: React.FC<CreatePostProps> = ({ onSubmit }) => {
                             >
                                 <Input
                                     placeholder="Digite o conteúdo da postagem"
-                                    disabled={!isFilled}
-                                    maxLength={30}
+                                    maxLength={200}
                                 />
                             </Form.Item>
                         </Flex>
                         <Form.Item label={null}>
                             <Button
-                                disabled={!isFilled}
                                 style={{ maxWidth: '150px' }}
                                 htmlType="submit"
                             >
