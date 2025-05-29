@@ -7,6 +7,7 @@ interface EditModalProps {
     onCancel: () => void
     confirmText?: string
     cancelText?: string
+    editPost?: PostType
 }
 
 const EditModal: React.FC<EditModalProps> = ({
@@ -15,6 +16,7 @@ const EditModal: React.FC<EditModalProps> = ({
     onCancel,
     confirmText = 'Confirmar',
     cancelText = 'Cancelar',
+    editPost,
 }) => {
     const onFinish = (e: PostType) => {
         onConfirm()
@@ -54,6 +56,7 @@ const EditModal: React.FC<EditModalProps> = ({
                             <Input
                                 placeholder="Digite o novo titulo da postagem"
                                 maxLength={30}
+                                defaultValue={editPost?.title}
                             />
                         </Form.Item>
                     </Flex>
@@ -73,6 +76,7 @@ const EditModal: React.FC<EditModalProps> = ({
                             <Input
                                 placeholder="Digite o conteúdo da postagem"
                                 maxLength={30}
+                                defaultValue={editPost?.body}
                             />
                         </Form.Item>
                     </Flex>

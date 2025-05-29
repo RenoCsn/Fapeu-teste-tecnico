@@ -6,7 +6,7 @@ interface ListProps {
     data: PostType[]
     isLoading: boolean
     onDelete: (id: PostType['id']) => void
-    onEdit: () => void
+    onEdit: (id: PostType['id']) => void
 }
 
 const List: React.FC<ListProps> = ({ data, isLoading, onDelete, onEdit }) => {

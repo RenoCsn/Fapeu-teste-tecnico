@@ -7,8 +7,7 @@ const { Text, Title } = Typography
 interface PostItemProps {
     post: PostType
     onDelete: (id: PostType['id']) => void
-    onEdit: () => void
-    // onEdit: (post: PostType)
+    onEdit: (id: PostType['id']) => void
 }
 
 const ListItem = ({ post, onDelete, onEdit }: PostItemProps) => {
@@ -24,7 +23,10 @@ const ListItem = ({ post, onDelete, onEdit }: PostItemProps) => {
                     {post.title}
                 </Title>
                 <Flex gap="small" justify="flex-end">
-                    <Button icon={<EditOutlined />} onClick={() => onEdit()} />
+                    <Button
+                        icon={<EditOutlined />}
+                        onClick={() => onEdit(post.id)}
+                    />
                     <Button
                         icon={<DeleteOutlined />}
                         onClick={() => onDelete(post.id)}

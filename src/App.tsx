@@ -20,6 +20,7 @@ function App() {
     } = useApi('https://jsonplaceholder.typicode.com/posts')
 
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isEditing, setIsEditing] = useState<PostType | undefined>(undefined)
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     useEffect(() => {
@@ -34,7 +35,10 @@ function App() {
         deleteData(postId)
     }
 
-    const handleEdit = () => {
+    const handleEdit = (postId: PostType['id']) => {
+        const postEditing = fetchData.find((post) => post.id === postId)
+        setIsEditing(postEditing)
+
         setIsModalOpen(true)
     }
 
@@ -44,6 +48,7 @@ function App() {
 
     const handleCancel = () => {
         setIsModalOpen(false)
+        setIsEditing(undefined)
     }
 
     return (
@@ -55,11 +60,14 @@ function App() {
                 onDelete={handleDelete}
                 onEdit={handleEdit}
             />
-            <EditModal
-                isModalOpen={isModalOpen}
-                onCancel={handleCancel}
-                onConfirm={handleConfirm}
-            />
+            {isEditing && (
+                <EditModal
+                    isModalOpen={isModalOpen}
+                    onCancel={handleCancel}
+                    onConfirm={handleConfirm}
+                    editPost={isEditing}
+                />
+            )}
         </Flex>
     )
 }
