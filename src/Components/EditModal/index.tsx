@@ -20,8 +20,8 @@ const EditModal: React.FC<EditModalProps> = ({
 }) => {
     const onFinish = (e: PostType) => {
         const editedPost: PostType = {
-            id: editPost?.id ?? 0,
             userId: editPost?.userId ?? 5,
+            id: editPost?.id ?? 0,
             title: e.title,
             body: e.body,
         }

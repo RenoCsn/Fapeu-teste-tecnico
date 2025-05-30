@@ -28,8 +28,8 @@ export const useApi = (url: string) => {
 
         try {
             const post: PostType = {
-                id: data[data.length - 1].id + 1 || 0 + 1,
                 userId: 5,
+                id: data[data.length - 1].id + 1 || 0 + 1,
                 title: newPost.title,
                 body: newPost.body,
             }
@@ -46,6 +46,8 @@ export const useApi = (url: string) => {
 
         try {
             console.log(editPost, '💕 edit fetch', data)
+            let aux = data
+            aux = data.splice(editPost.id - 1, 1, editPost)
         } catch (error) {
             setError(error)
         } finally {
