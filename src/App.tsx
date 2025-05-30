@@ -11,6 +11,7 @@ function App() {
     const {
         getData,
         postData,
+        editPostData,
         deleteData,
         data: fetchData,
         loading: fetchLoading,
@@ -38,11 +39,12 @@ function App() {
     const handleEdit = (postId: PostType['id']) => {
         const postEditing = fetchData.find((post) => post.id === postId)
         setIsEditing(postEditing)
-
         setIsModalOpen(true)
     }
 
-    const handleConfirm = () => {
+    const handleConfirm = (editPost: PostType) => {
+        editPostData(editPost)
+
         setIsModalOpen(false)
     }
 

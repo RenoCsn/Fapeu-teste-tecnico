@@ -25,14 +25,27 @@ export const useApi = (url: string) => {
 
     const postData = (newPost: PostType) => {
         setLoading(true)
+
         try {
             const post: PostType = {
-                id: data[data.length - 1]?.id || 0 + 1,
+                id: data[data.length - 1].id + 1 || 0 + 1,
                 userId: 5,
                 title: newPost.title,
                 body: newPost.body,
             }
             setData([...data, post])
+        } catch (error) {
+            setError(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const editPostData = (editPost: PostType) => {
+        setLoading(true)
+
+        try {
+            console.log(editPost, '💕 edit fetch', data)
         } catch (error) {
             setError(error)
         } finally {
@@ -48,6 +61,7 @@ export const useApi = (url: string) => {
     return {
         getData,
         postData,
+        editPostData,
         deleteData,
         data,
         status,

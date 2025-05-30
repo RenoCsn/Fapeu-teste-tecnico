@@ -3,7 +3,7 @@ import type { PostType } from '../../Utils/types'
 
 interface EditModalProps {
     isModalOpen: boolean
-    onConfirm: () => void
+    onConfirm: (post: PostType) => void
     onCancel: () => void
     confirmText?: string
     cancelText?: string
@@ -19,8 +19,14 @@ const EditModal: React.FC<EditModalProps> = ({
     editPost,
 }) => {
     const onFinish = (e: PostType) => {
-        onConfirm()
-        // onConfirm(e)
+        const editedPost: PostType = {
+            id: editPost?.id ?? 0,
+            userId: editPost?.userId ?? 5,
+            title: e.title,
+            body: e.body,
+        }
+        // console.log(editedPost, '😅😅 onFinish')
+        onConfirm(editedPost)
         form.resetFields()
     }
 
@@ -32,7 +38,7 @@ const EditModal: React.FC<EditModalProps> = ({
             title="Editar post"
             closable={{ 'aria-label': 'Custom Close Button' }}
             open={isModalOpen}
-            onOk={onConfirm}
+            onOk={form.submit}
             onCancel={onCancel}
             okText={confirmText}
             cancelText={cancelText}
@@ -55,7 +61,7 @@ const EditModal: React.FC<EditModalProps> = ({
                         >
                             <Input
                                 placeholder="Digite o novo titulo da postagem"
-                                maxLength={30}
+                                maxLength={80}
                                 defaultValue={editPost?.title}
                             />
                         </Form.Item>
@@ -75,7 +81,7 @@ const EditModal: React.FC<EditModalProps> = ({
                         >
                             <Input
                                 placeholder="Digite o conteúdo da postagem"
-                                maxLength={30}
+                                maxLength={200}
                                 defaultValue={editPost?.body}
                             />
                         </Form.Item>
