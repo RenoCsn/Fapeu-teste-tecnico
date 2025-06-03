@@ -25,9 +25,7 @@ const EditModal: React.FC<EditModalProps> = ({
             title: e.title,
             body: e.body,
         }
-        // console.log(editedPost, '😅😅 onFinish')
         onConfirm(editedPost)
-        form.resetFields()
     }
 
     const [form] = Form.useForm()
@@ -45,7 +43,7 @@ const EditModal: React.FC<EditModalProps> = ({
             okButtonProps={{ htmlType: 'submit' }}
         >
             <Flex vertical gap={16}>
-                <Form form={form} onFinish={onFinish}>
+                <Form form={form} onFinish={onFinish} preserve={false}>
                     <Flex vertical gap={4}>
                         <Text strong style={{ fontSize: 12 }}>
                             Titulo *
@@ -58,11 +56,11 @@ const EditModal: React.FC<EditModalProps> = ({
                                     message: 'Por favor insira um Título.',
                                 },
                             ]}
+                            initialValue={editPost?.title}
                         >
                             <Input
                                 placeholder="Digite o novo titulo da postagem"
                                 maxLength={80}
-                                defaultValue={editPost?.title}
                             />
                         </Form.Item>
                     </Flex>
@@ -78,11 +76,11 @@ const EditModal: React.FC<EditModalProps> = ({
                                     message: 'Digite o texto da nova postagem.',
                                 },
                             ]}
+                            initialValue={editPost?.body}
                         >
                             <Input
                                 placeholder="Digite o conteúdo da postagem"
                                 maxLength={200}
-                                defaultValue={editPost?.body}
                             />
                         </Form.Item>
                     </Flex>

@@ -45,9 +45,10 @@ export const useApi = (url: string) => {
         setLoading(true)
 
         try {
-            console.log(editPost, '💕 edit fetch', data)
-            let aux = data
-            aux = data.splice(editPost.id - 1, 1, editPost)
+            const indexFind = data.findIndex((post) => editPost.id === post.id)
+            const aux = [...data]
+            aux.splice(indexFind, 1, editPost)
+            setData(aux)
         } catch (error) {
             setError(error)
         } finally {
